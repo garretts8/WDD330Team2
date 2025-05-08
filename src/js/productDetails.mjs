@@ -23,7 +23,7 @@ function addToCart() {
 function renderProductDetails() {
   document.querySelector("#productName").innerHTML = product.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerHTML = product.NameWithoutBrand;
-  document.querySelector("#productImage").src = product.Images;
+  document.querySelector("#productImage").src = product.Image;
   document.querySelector("#productImage").alt = product.Name;  
   document.querySelector("#productFinalPrice").innerHTML = product.FinalPrice; 
   document.querySelector("#productColorName").innerHTML = product.Colors[0].ColorName; 
