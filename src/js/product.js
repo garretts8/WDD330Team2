@@ -1,24 +1,12 @@
-import { setLocalStorage, getLocalStorage, getParams } from "./utils.mjs";
-import { findProductById } from "./productData.mjs";
+import { getParam } from "./utils.mjs";
+import productDetails from "./productDetails.mjs";
 
-const dataSource = new ProductData("tents");
-const productId = getParams("product");
-console.log(findProductById(productId));
-productDetails(productId);
+const productId = getParam("product");
 
-function addProductToCart(product) {
-  let currentCart = getLocalStorage("so-cart") || [];
-  currentCart.push(product);
-  setLocalStorage("so-cart", currentCart);
+// productDetails(productId);
+
+if (productId) {
+  productDetails(productId);
+} else {
+  console.error("We couldn't find product ID in the  URL");
 }
-// add to cart button event handler
-async function addToCartHandler(e) {
-  const product = await findProductById(e.target.dataset.id);
-  addProductToCart(product);
-}
-
-
-// add listener to Add to Cart button
-document
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
