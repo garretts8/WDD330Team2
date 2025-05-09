@@ -1,5 +1,5 @@
 import { findProductById } from "./productData.mjs";
-import { setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 // three functions are recommended: productDetails(productId), addToCart() -moved from the 
 // product.js, and renderProductDetails().
@@ -16,9 +16,18 @@ export default async function productDetails(productId) {
 }
 
 function addToCart() {
-  setLocalStorage("so-cart", product);
-}
+  let cart = getLocalStorage("so-cart") || [];
+  const existingItem = cart.find(item => item.Id === product.Id);
 
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
+  }
+
+  setLocalStorage("so-cart", cart);
+}
 // method to fill in the details for the current product in the HTML.
 function renderProductDetails() {
   document.querySelector("#productName").innerHTML = product.Brand.Name;
