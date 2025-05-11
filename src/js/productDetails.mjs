@@ -1,5 +1,5 @@
 import { findProductById } from "./productData.mjs";
-import { setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, getCartItemCount } from "./utils.mjs";
 
 let product = {};
 
@@ -11,10 +11,31 @@ export default async function productDetails(productId) {
   // once the HTML is rendered we can add a listener to Add to Cart button
   document.getElementById("addToCart").addEventListener("click", addToCart);
 }
-function addToCart() {
-  setLocalStorage("so-cart", product);
+
+export function updateCartCount() {
+  const count = getCartItemCount();
+  const cartCountEl = document.getElementById("cart-count");
+  if (cartCountEl) {
+    cartCountEl.textContent = count;
+  }
 }
 
+function addToCart() {
+  let cart = getLocalStorage("so-cart") || [];
+  const existingItem = cart.find(item => item.Id === product.Id);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
+  }
+
+  setLocalStorage("so-cart", cart);
+  updateCartCount(getCartItemCount());
+}
+
+// method to fill in the details for the current product in the HTML.
 function renderProductDetails() {
   document.querySelector("#productName").innerText = product.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerText =

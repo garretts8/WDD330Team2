@@ -25,3 +25,8 @@ export function getParam(param) {
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
+
+export function getCartItemCount() {
+  const cart = getLocalStorage("so-cart") || [];
+  return cart.reduce((total, item) => total + item.quantity, 0);
+}
