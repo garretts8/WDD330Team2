@@ -9,11 +9,46 @@ import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 let product = {};
 
 export default async function productDetails(productId) {
-  product = await findProductById(productId);
-  renderProductDetails();
-  document
-    .getElementById("addToCart").addEventListener("click", addToCart);
-}
+    try {
+      product = await findProductById(productId);
+  
+      if (!product || !product.Id) {
+        throw new Error("Product not found.");
+      }
+  
+      renderProductDetails();
+  
+      const addButton = document.getElementById("addToCart");
+      if (addButton) {
+        addButton.addEventListener("click", addToCart);
+        addButton.style.display = "block";
+      }
+  
+    } catch (error) {
+      console.error("Error loading product:", error);
+  
+      const existingError = document.getElementById("dynamic-error");
+      if (!existingError) {
+        const errorMessage = document.createElement("p");
+        errorMessage.id = "dynamic-error";
+        errorMessage.textContent = "This item couldn’t be found. Please try again or select a different product.";
+        errorMessage.style.color = "red";
+        errorMessage.style.margin = "1em 0";
+  
+        const referenceNode = document.getElementById("addToCart");
+        if (referenceNode && referenceNode.parentNode) {
+          referenceNode.parentNode.insertBefore(errorMessage, referenceNode);
+        }
+      }
+  
+      // Hide  button
+      const addButton = document.getElementById("addToCart");
+      if (addButton) {
+        addButton.style.display = "none";
+      }
+    }
+  }
+  
 
 function addToCart() {
   let cart = getLocalStorage("so-cart") || [];
