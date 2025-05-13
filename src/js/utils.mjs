@@ -29,9 +29,15 @@ export function getParam(param) {
 }
 
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true){
-  if (clear) {
-    parentElement.innerHTML = "";
-  }
-  const htmlStrings =  list.map(templateFn);
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
-  }
+    if (clear) {
+      parentElement.innerHTML = "";
+    }
+    const htmlStrings =  list.map(templateFn);
+    parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+    } 
+
+  export function getCartItemCount() {
+  const cart = getLocalStorage("so-cart") || [];
+  return cart.reduce((total, item) => total + item.quantity, 0);
+}
+
