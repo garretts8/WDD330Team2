@@ -233,6 +233,12 @@ button {
   grid-column: 3;
 }
 
+.product-card__suggestedprice{
+  text-decoration: line-through;
+  color: grey;
+  font-size:smaller;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
