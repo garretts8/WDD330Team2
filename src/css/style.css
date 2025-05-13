@@ -167,6 +167,24 @@ button {
 .card__name {
   font-size: 1em;
 }
+
+.product-card__original-price {
+  text-decoration: line-through;
+  color: grey;
+  font-size:smaller;
+}
+
+.product-card__discount-price {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  margin-bottom: -15px;
+  font-size: x-large;
+
+}
+
+.discount-flag {
+  font-weight: 900;
+}
 /* End product list card */
 
 .product-detail {
