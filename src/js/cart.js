@@ -43,9 +43,15 @@ function cartItemTemplate(item) {
 
   return newItem;
 }
-
 function removeFromCart(productId) {
-  let cart = getLocalStorage("so-cart") || [];
+  let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
+
+  if (!Array.isArray(cart)) {
+    cart = [];
+  }
+
+  console.log("Cart from localStorage:", cart);
+  console.log("Is cart an array?", Array.isArray(cart));
 
   const itemIndex = cart.findIndex(item => item.Id === productId);
   if (itemIndex !== -1) {
@@ -56,8 +62,7 @@ function removeFromCart(productId) {
     }
   }
 
-  setLocalStorage("so-cart", cart);
-
+  localStorage.setItem("so-cart", JSON.stringify(cart));
   renderCartContents();
 }
 
