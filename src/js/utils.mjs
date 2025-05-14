@@ -15,8 +15,10 @@ export function setLocalStorage(key, data) {
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {event.preventDefault();
-    callback(); });
+  qs(selector).addEventListener("touchend", (event) => {
+    event.preventDefault();
+    callback();
+  });
   qs(selector).addEventListener("click", callback);
 }
 
@@ -26,21 +28,15 @@ export function getParam(param) {
   return urlParams.get(param);
 }
 
-export function renderListWithTemplate(
-  templateFn,
-  parentElement,
-  list,
-  position = "afterbegin",
-  clear = true
-) {
-  if (clear) {
-    parentElement.innerHTML = "";
-  }
-  const htmlString = list.map(templateFn);
-  parentElement.insertAdjacentHTML(position, htmlString.join(""));
-}
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true){
+    if (clear) {
+      parentElement.innerHTML = "";
+    }
+    const htmlStrings =  list.map(templateFn);
+    parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+    } 
 
-export function getCartItemCount() {
+  export function getCartItemCount() {
   const cart = getLocalStorage("so-cart") || [];
   return cart.reduce((total, item) => total + item.quantity, 0);
 }
