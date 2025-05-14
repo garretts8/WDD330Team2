@@ -1,6 +1,6 @@
 
 import { findProductById } from "./productData.mjs";
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, getCartItemCount } from "./utils.mjs";
 
 // three functions are recommended: productDetails(productId), addToCart() -moved from the 
 // product.js, and renderProductDetails().
@@ -49,7 +49,14 @@ export default async function productDetails(productId) {
       }
     }
   }
-  
+
+// export function updateCartIconCount() {
+//   const count = getCartItemCount();
+//   const cartCountEl = document.getElementById("cart-count");
+//   if (cartCountEl) {
+//     cartCountEl.textContent = count;
+//   }
+// }
 
 function addToCart() {
   let cart = getLocalStorage("so-cart") || [];
@@ -78,3 +85,4 @@ function renderProductDetails() {
 /* product name,  product without brand, product image source, product image alt, productFinalPrice, productColorName, productDescriptionHtmlSimple, addToCart */
 
 // Handles Add to Cart clicks
+

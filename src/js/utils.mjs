@@ -40,3 +40,4 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   const cart = getLocalStorage("so-cart") || [];
   return cart.reduce((total, item) => total + item.quantity, 0);
 }
+

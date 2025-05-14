@@ -1,7 +1,7 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, getCartItemCount, setLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
-  let cartItems = getLocalStorage("so-cart");
+  let cartItems = getLocalStorage("so-cart") || [];
 
   console.log("cartItems from localStorage:", cartItems);
   console.log("Is cartItems an array?", Array.isArray(cartItems));
@@ -62,4 +62,13 @@ function removeFromCart(productId) {
   renderCartContents();
 }
 
+function updateCartIconCount() {
+  const count = getCartItemCount();
+  const cartCountEl = document.getElementById("cart-count");
+  if (cartCountEl) {
+    cartCountEl.textContent = count;
+  }
+}
+
+updateCartIconCount();
 renderCartContents();

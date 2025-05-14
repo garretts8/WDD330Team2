@@ -217,6 +217,19 @@ button {
   }
 }
 
+.cart-count {
+  position: absolute;
+  top: 21px;
+  right: -22px;
+  background-color: rgb(240, 167, 11);
+  color: black;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+
 footer {
   font-size: var(--small-font);
   padding: 1em;
