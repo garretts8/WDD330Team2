@@ -113,17 +113,6 @@ button {
 
 /* End cart icon styles */
 
-.cart-card__quantity {
-  display: flex;
-  align-items: center;
-  gap: 0.5em; /* spacing between label and input */
-}
-
-.cart-quantity-input {
-  width: 50px; /* or adjust to your preference */
-  text-align: right;
-}
-
 .mission {
   padding: 0 0.5em;
   /* margin: 0.5em 0; */
