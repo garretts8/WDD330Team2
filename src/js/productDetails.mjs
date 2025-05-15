@@ -63,6 +63,7 @@ function addToCart() {
   }
 
   setLocalStorage("so-cart", cart);
+  window.location.reload();
 }
 // method to fill in the details for the current product in the HTML.
 function renderProductDetails() {
