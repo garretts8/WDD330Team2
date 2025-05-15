@@ -1,3 +1,4 @@
+
 /*Import in the code we need from our modules. Then we get the id of our product using our helper 
 function getParams. Then we use the function from productDetails with the productId to 
 finish setting everything up. */

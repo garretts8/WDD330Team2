@@ -1,3 +1,4 @@
+
 import { findProductById } from "./productData.mjs";
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
@@ -48,7 +49,7 @@ export default async function productDetails(productId) {
       }
     }
   }
-  
+
 
 function addToCart() {
   let cart = getLocalStorage("so-cart") || [];
@@ -80,3 +81,4 @@ function renderProductDetails() {
 /* product name,  product without brand, product image source, product image alt, productFinalPrice, productColorName, productDescriptionHtmlSimple, addToCart */
 
 // Handles Add to Cart clicks
+

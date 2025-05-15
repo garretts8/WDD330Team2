@@ -12,6 +12,7 @@ function productCardTemplate(product) {
     <h2 class="card__name">${product.NameWithoutBrand}</h2>
     <p class="product-card__price">$${product.FinalPrice}</p></a>
     <p class="product-card__suggestedprice">$${product.SuggestedRetailPrice.toFixed(2)}</p></a>
+
   </li>`
 }  
 
@@ -25,5 +26,5 @@ export async function productList(selector, category) {
     const limited = products.slice(0, 4);
     // render out the product list to the element
     renderListWithTemplate(productCardTemplate, elem, limited);
-
 }
+
