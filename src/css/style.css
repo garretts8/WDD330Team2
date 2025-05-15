@@ -168,6 +168,14 @@ button {
 
 .card__name {
   font-size: 1em;
+  width: 500px;
+}
+ 
+.cart-quantity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 210px;
 }
 
 .product-card__original-price {

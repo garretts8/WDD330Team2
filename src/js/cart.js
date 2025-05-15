@@ -58,10 +58,6 @@ function updateCartQuantity(productId, newQuantity) {
 
 }
 
-
-
-
-
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
@@ -72,7 +68,7 @@ function cartItemTemplate(item) {
     </a>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
 
-    <p> Qty: <input type="number" class="cart-quantity-input" data-id="${item.Id}" 
+    <p class="cart-quantity"> Qty: <input type="number" class="cart-quantity-input" data-id="${item.Id}" 
     id="quantity-${item.Id}" min="1" value="${item.quantity}" /> </p>
 
     <p class="cart-card__price">$${item.FinalPrice}</p>
