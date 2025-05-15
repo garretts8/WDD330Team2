@@ -1,6 +1,6 @@
 
 import { findProductById } from "./productData.mjs";
-import { getLocalStorage, setLocalStorage, getCartItemCount } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 // three functions are recommended: productDetails(productId), addToCart() -moved from the 
 // product.js, and renderProductDetails().

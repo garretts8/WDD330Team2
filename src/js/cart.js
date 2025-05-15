@@ -11,16 +11,47 @@ function renderCartContents() {
     cartItems = cartItems ? [cartItems] : [];
   }
 
+  // Ensure each item has a quantity (default = 1)
+  cartItems = cartItems.map(item => {
+    if (!item.quantity) item.quantity = 1;
+    return item;
+  });
+
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  
 
-// event listener to remove buttons
+ // event listener to remove buttons
   document.querySelectorAll(".remove-item").forEach(button => {
     button.addEventListener("click", (event) => {
-      const productId = event.target.dataset.id; 
+      const productId = event.target.dataset.id;
       removeFromCart(productId);
     });
   });
+
+  // event listener for quantity input changes
+  document.querySelectorAll(".cart-quantity-input").forEach(input => {
+    input.addEventListener("change", (event) => {
+      const newQty = parseInt(event.target.value);
+      const productId = event.target.dataset.id;
+      if (newQty > 0) {
+        updateCartQuantity(productId, newQty);
+      }
+    });
+  });
+}
+
+function updateCartQuantity(productId, newQuantity) {
+  let cart = getLocalStorage("so-cart") || [];
+
+  const itemIndex = cart.findIndex(item => item.Id === productId);
+  if (itemIndex !== -1) {
+    cart[itemIndex].quantity = newQuantity;
+  }
+
+  setLocalStorage("so-cart", cart);
+  updateCartIconCount();
+  renderCartContents(); // re-render the cart with updated quantities
 }
 
 function cartItemTemplate(item) {
@@ -32,13 +63,16 @@ function cartItemTemplate(item) {
       <h2 class="card__name">${item.Name}</h2>
     </a>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <p class="cart-card__quantity">qty: ${item.quantity}</p>
+    <label for="quantity-${item.Id}">Qty:</label>
+    <input type="number" class="cart-quantity-input" data-id="${item.Id}" 
+    id="quantity-${item.Id}" min="1" value="${item.quantity}" />
     <p class="cart-card__price">$${item.FinalPrice}</p>
     <button class="remove-item" data-id="${item.Id}">X</button>
   </li>`;
 
   return newItem;
 }
+
 function removeFromCart(productId) {
   let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
 
@@ -65,8 +99,12 @@ function removeFromCart(productId) {
 function updateCartIconCount() {
   const count = getCartItemCount();
   const cartCountEl = document.getElementById("cart-count");
+  const cartCountPlainEl = document.getElementById("cart-count-plain");
   if (cartCountEl) {
     cartCountEl.textContent = count;
+  }
+  if (cartCountPlainEl) {
+    cartCountPlainEl.textContent = count;
   }
 }
 
