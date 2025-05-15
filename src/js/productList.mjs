@@ -22,7 +22,8 @@ export async function productList(selector, category) {
     // get the list of products 
     const products = await getData(category);
     console.log(products);
+    const limited = products.slice(0, 4);
     // render out the product list to the element
-    renderListWithTemplate(productCardTemplate, elem, products);
+    renderListWithTemplate(productCardTemplate, elem, limited);
 
 }
