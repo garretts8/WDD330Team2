@@ -110,6 +110,19 @@ button {
   fill: gray;
 }
 
+.shake-animation {
+  animation: shake 0.5s linear;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
 /* End cart icon styles */
 
 .mission {
@@ -153,6 +166,24 @@ button {
 
 .card__name {
   font-size: 1em;
+}
+
+.product-card__original-price {
+  text-decoration: line-through;
+  color: grey;
+  font-size:smaller;
+}
+
+.product-card__discount-price {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  margin-bottom: -15px;
+  font-size: x-large;
+
+}
+
+.discount-flag {
+  font-weight: 900;
 }
 /* End product list card */
 
@@ -200,6 +231,12 @@ button {
 .cart-card__price {
   grid-row: 2;
   grid-column: 3;
+}
+
+.product-card__suggestedprice{
+  text-decoration: line-through;
+  color: grey;
+  font-size:smaller;
 }
 
 @media screen and (min-width: 500px) {

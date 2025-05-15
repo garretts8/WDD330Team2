@@ -65,12 +65,15 @@ function addToCart() {
 }
 // method to fill in the details for the current product in the HTML.
 function renderProductDetails() {
+  const discountPercentage = ((product.SuggestedRetailPrice - product.ListPrice) / product.SuggestedRetailPrice) * 100;
   document.querySelector("#productName").innerHTML = product.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerHTML = product.NameWithoutBrand;
   document.querySelector("#productImage").src = product.Image;
-  document.querySelector("#productImage").alt = product.Name;  
-  document.querySelector("#productFinalPrice").innerHTML = product.FinalPrice; 
-  document.querySelector("#productColorName").innerHTML = product.Colors[0].ColorName; 
+  document.querySelector("#productImage").alt = product.Name; 
+  document.querySelector("#productSuggestedRetailPrice").innerHTML ="$" + product.SuggestedRetailPrice.toFixed(2);  
+  document.querySelector("#productFinalPrice").innerHTML = "$" + product.FinalPrice; 
+  document.querySelector("#productDiscountPercent").innerHTML = "Save "+ discountPercentage.toFixed(0) +"%!";
+  document.querySelector("#productColorName").innerHTML = "Colors: "+ product.Colors[0].ColorName; 
   document.querySelector("#productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
   document.querySelector("#addToCart").dataset.id = product.Id;
 }
