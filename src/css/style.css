@@ -91,6 +91,7 @@ button {
   border: 0;
   font-size: var(--large-font);
   cursor: pointer;
+  border-radius: 4px;
 }
 .divider {
   border-bottom: 2px solid var(--primary-color);
@@ -110,6 +111,7 @@ button {
 .cart:hover svg {
   fill: gray;
 }
+
 
 .shake-animation {
   animation: shake 0.5s linear;
@@ -177,6 +179,7 @@ button {
   align-items: center;
   width: 210px;
 }
+
 
 .product-card__original-price {
   text-decoration: line-through;
@@ -279,4 +282,23 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+/* Cart HTML */
+.cart-summary {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+  text-align: right;
+  background-color: #f9f9f9;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.cart-summary__total {
+  color: #333;
+}
+
+.cart-hidden {
+  display: none;
 }

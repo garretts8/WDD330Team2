@@ -22,7 +22,22 @@ function renderCartContents() {
 
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  const cartSummary = document.querySelector(".cart-summary");
+  const cartTotal = document.querySelector(".cart-summary__total");
   
+  if (cartItems.length > 0) {
+    cartSummary.classList.remove("cart-hidden");
+  
+    const total = cartItems.reduce((sum, item) => {
+      return sum + item.FinalPrice * item.quantity;
+    }, 0);
+  
+    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+  } else {
+    cartSummary.classList.add("cart-hidden");
+  }
+  
+
 
  // event listener to remove buttons
   document.querySelectorAll(".remove-item").forEach(button => {
