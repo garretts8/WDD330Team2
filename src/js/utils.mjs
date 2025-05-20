@@ -41,3 +41,35 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   return cart.reduce((total, item) => total + item.quantity, 0);
 }
 
+export async function renderWithTemplate(templateFn, parentElement, data, callback, position = "afterbegin", clear = true){
+    if (clear) {
+      parentElement.innerHTML = "";
+    }
+    
+    const htmlStrings = await templateFn(data);
+    parentElement.insertAdjacentHTML(position, htmlStrings);
+    if(callback) {
+      callback(data)
+    }
+    } 
+
+function loadTemplate(path) {
+
+    return async function () {
+        const res = await fetch(path);
+        if (res.ok) {
+        const html = await res.text();
+        return html;
+        }
+    };
+} 
+
+export async function loadHeaderFooter() {
+
+  const headerTemplateFn = loadTemplate("/partials/header.html");
+  const footerTemplateFn = loadTemplate("/partials/footer.html");
+  const headerElement = document.querySelector("#main-header");
+  const footerElement = document.querySelector("#main-footer");
+  renderWithTemplate(headerTemplateFn, headerElement);
+  renderWithTemplate(footerTemplateFn, footerElement);
+}
