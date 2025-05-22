@@ -88,6 +88,7 @@ function removeFromCart(productId) {
 
   setLocalStorage("so-cart", cart);
   renderCartContents();
+  window.location.reload()
 }
 
 function updateCartIconCount() {
