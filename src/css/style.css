@@ -179,6 +179,11 @@ button {
   width: 210px;
 }
 
+.product-card__original-price {
+  text-decoration: line-through;
+  color: grey;
+  font-size:smaller;
+}
 
 .product-card__discount-price {
   color: rgb(0, 0, 0);
@@ -275,40 +280,4 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
-}
-
-/****** Discount *******/
-
-.product-card__discount-price,
-.product-card__original-price,
-.discount-flag {
-
-  display: inline-block;
-  vertical-align: baseline;
-}
-
-.product-card__discount-price {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-right: 0.5rem;
-  color: #222;
-}
-
-.product-card__original-price {
-  
-  text-decoration: line-through;
-  color: #777;
-  margin-right: 0.5rem;
-  font-size: 1.1rem;
-}
-
-.discount-flag {
-  margin-top: -5px;
-  background-color: #e53935;
-  color: white;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  font-weight: bold;
-  width: 88px;
 }

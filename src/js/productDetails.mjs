@@ -67,33 +67,19 @@ function addToCart() {
 }
 // method to fill in the details for the current product in the HTML.
 function renderProductDetails() {
-
-  const retail = product.SuggestedRetailPrice;
-  const sale   = product.ListPrice;     
-  const rawPct = ((retail - sale) / retail) * 100;
-  const pct    = rawPct > 0 ? Math.round(rawPct) : 0;
-
-  const discountEl = document.getElementById("productDiscountPercent");
-
-  if (pct > 0) {
-    discountEl.textContent = `Save ${pct}%!`;
-    discountEl.style.display = "block";
-  } else {
-   
-    discountEl.style.display = "none";
-  }
-
-  // now fill in the rest of the fields:
-  document.querySelector("#productName").textContent = product.Brand.Name;
-  document.querySelector("#productNameWithoutBrand").textContent = product.NameWithoutBrand;
+  const discountPercentage = ((product.SuggestedRetailPrice - product.ListPrice) / product.SuggestedRetailPrice) * 100;
+  document.querySelector("#productName").innerHTML = product.Brand.Name;
+  document.querySelector("#productNameWithoutBrand").innerHTML = product.NameWithoutBrand;
   document.querySelector("#productImage").src = product.Image;
-  document.querySelector("#productImage").alt = product.Name;
-  document.querySelector("#productSuggestedRetailPrice").textContent = `$${retail.toFixed(2)}`;
-  document.querySelector("#productFinalPrice").textContent = `$${product.FinalPrice.toFixed(2)}`;
-  
-  document.querySelector("#productColorName").textContent = `Colors: ${product.Colors[0].ColorName}`;
+  document.querySelector("#productImage").alt = product.Name; 
+  document.querySelector("#productSuggestedRetailPrice").innerHTML ="$" + product.SuggestedRetailPrice.toFixed(2);  
+  document.querySelector("#productFinalPrice").innerHTML = "$" + product.FinalPrice; 
+  document.querySelector("#productDiscountPercent").innerHTML = "Save "+ discountPercentage.toFixed(0) +"%!";
+  document.querySelector("#productColorName").innerHTML = "Colors: "+ product.Colors[0].ColorName; 
   document.querySelector("#productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
   document.querySelector("#addToCart").dataset.id = product.Id;
 }
+/* product name,  product without brand, product image source, product image alt, productFinalPrice, productColorName, productDescriptionHtmlSimple, addToCart */
 
+// Handles Add to Cart clicks
 
