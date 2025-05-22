@@ -1,6 +1,11 @@
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
-  return parent.querySelector(selector);
+  try {
+    return parent.querySelector(selector);
+  } catch (error) {
+    console.warn(`Invalid selector passed to qs(): "${selector}"`, error);
+    return null;
+  }
 }
 // or a more concise version if you are into that sort of thing:
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
@@ -20,6 +25,14 @@ export function setClick(selector, callback) {
     callback();
   });
   qs(selector).addEventListener("click", callback);
+}
+
+export function updateCartIconCount() {
+  const count = getCartItemCount();
+  const cartCountEl = document.getElementById("cart-count");
+  if (cartCountEl) {
+    cartCountEl.textContent = count;
+  }
 }
 
 export function getParam(param) {
@@ -45,13 +58,14 @@ export async function renderWithTemplate(templateFn, parentElement, data, callba
     if (clear) {
       parentElement.innerHTML = "";
     }
-    
+
     const htmlStrings = await templateFn(data);
     parentElement.insertAdjacentHTML(position, htmlStrings);
+
     if(callback) {
       callback(data)
     }
-    } 
+}
 
 function loadTemplate(path) {
 
@@ -64,12 +78,20 @@ function loadTemplate(path) {
     };
 } 
 
-export async function loadHeaderFooter() {
 
+
+export async function loadHeaderFooter() {
   const headerTemplateFn = loadTemplate("/partials/header.html");
   const footerTemplateFn = loadTemplate("/partials/footer.html");
   const headerElement = document.querySelector("#main-header");
   const footerElement = document.querySelector("#main-footer");
-  renderWithTemplate(headerTemplateFn, headerElement);
-  renderWithTemplate(footerTemplateFn, footerElement);
+
+  if (headerElement) {
+    headerElement.innerHTML = ""; // <-- Clear static HTML if exists
+    await renderWithTemplate(headerTemplateFn, headerElement);
+  }
+  if (footerElement) {
+    footerElement.innerHTML = ""; // <-- Clear static HTML if exists
+    await renderWithTemplate(footerTemplateFn, footerElement);
+  }
 }
