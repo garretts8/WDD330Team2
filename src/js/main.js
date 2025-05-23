@@ -1,5 +1,8 @@
 import { productList } from "./productList.mjs";
 import { loadHeaderFooter, updateCartIconCount } from "./utils.mjs";
+import { showWelcomeModal } from './welcomeBanner.js';
+
+
 productList(".product-list", "tents");
 
 loadHeaderFooter().then(() => {
@@ -16,3 +19,5 @@ if (form) {
     form.reset();
   });
 }
+// Show Modal
+showWelcomeModal();
