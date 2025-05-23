@@ -73,7 +73,7 @@ function cartItemTemplate(item) {
     </p>
 
     <p class="cart-card__price">$${item.FinalPrice}</p>
-    <button class="remove-item" data-id="${item.Id}">X</button>
+    <button class="remove-item" data-id="${item.Id}">x</button>
   </li>`;
 }
 
