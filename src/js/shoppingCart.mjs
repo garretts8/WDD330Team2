@@ -23,6 +23,20 @@ function renderCartContents() {
   const htmlItems = cartItems.map(cartItemTemplate);
     const output = document.querySelector(".product-list");
     output.innerHTML = htmlItems.join("");
+      const cartSummary = document.querySelector(".cart-summary");
+  const cartTotal = document.querySelector(".cart-summary__total");
+
+  if (cartItems.length > 0) {
+    cartSummary.classList.remove("cart-hidden");
+
+    const total = cartItems.reduce((sum, item) => {
+      return sum + item.FinalPrice * item.quantity;
+    }, 0);
+
+    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+  } else {
+    cartSummary.classList.add("cart-hidden");
+  }
 
   // Set up event listeners
   document.querySelectorAll(".remove-item").forEach(button => {
@@ -90,6 +104,8 @@ function removeFromCart(productId) {
   renderCartContents();
   window.location.reload()
 }
+
+
 
 function updateCartIconCount() {
   const count = getCartItemCount();
