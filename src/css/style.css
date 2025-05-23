@@ -23,17 +23,15 @@ body {
   color: var(--dark-grey);
 }
 
-
-
-
 img {
   max-width: 100%;
 }
+
 header {
-  display: flex;
   justify-content: space-between;
   padding: 0 10px;
 }
+
 .logo {
   line-height: 60px;
   width: 245px;
@@ -96,16 +94,25 @@ button {
   cursor: pointer;
   border-radius: 4px;
 }
-.divider {
+header.divider {
   border-bottom: 2px solid var(--primary-color);
+  display: auto;
+
 }
 /* End utility classes */
 
 /* Cart icon styles */
 .cart {
-  padding-top: 1em;
+  /* padding: 1em; */
   position: relative;
-  text-align: center;
+  left: 1000px;
+  top: -25px;
+  /* text-decoration: none; */
+
+}
+
+.cart a {
+  text-decoration: none;
 }
 
 .cart svg {
@@ -291,9 +298,8 @@ button {
 }
 
 .cart-count {
-  position: absolute;
-  top: 21px;
-  right: -22px;
+  /* top: 37px;
+  right: 290px; */
   background-color: rgb(240, 167, 11);
   color: black;
   border-radius: 50%;

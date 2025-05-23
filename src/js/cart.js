@@ -1,5 +1,5 @@
+import { getLocalStorage, setLocalStorage, loadHeaderFooter, updateCartIconCount } from "./utils.mjs";
 
-import { getLocalStorage, getCartItemCount, setLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   let cartItems = getLocalStorage("so-cart") || [];
@@ -118,18 +118,36 @@ function removeFromCart(productId) {
   window.location.reload();
 }
 
-export function updateCartIconCount() {
-  const count = getCartItemCount();
-  const cartCountEl = document.getElementById("cart-count");
-  const cartCountPlainEl = document.getElementById("cart-count-plain");
-  if (cartCountEl) {
-    cartCountEl.textContent = count;
-  }
-  if (cartCountPlainEl) {
-    cartCountPlainEl.textContent = count;
-  }
+// removed so that it could be added to the utils.mjs file
+// With the page becoming dynamic, by the time it loaded, it would not
+// know when the "add to cart" button was pressed.
 
-}
+// export async function updateCartIconCount() {
+//   const count = getCartItemCount();
+//   const cartCountEl = document.getElementById("cart-count");
+//   const cartCountPlainEl = document.getElementById("cart-count-plain");
+//   if (cartCountEl) {
+//     cartCountEl.textContent = count;
+//   }
+//   if (cartCountPlainEl) {
+//     cartCountPlainEl.textContent = count;
+//   }
 
-updateCartIconCount();
+// }
+
+// export async function updateCartIconCount() {
+//   const count = getCartItemCount();
+//   const cartCountEl = document.getElementById("cart-count");
+//   const cartCountPlainEl = document.getElementById("cart-count-plain");
+//   if (cartCountEl) {
+//     cartCountEl.textContent = count;
+//   }
+//   if (cartCountPlainEl) {
+//     cartCountPlainEl.textContent = count;
+//   }
+
+// }
+
+loadHeaderFooter(updateCartIconCount);
+// await updateCartIconCount();
 renderCartContents();

@@ -82,4 +82,3 @@ function renderProductDetails() {
 /* product name,  product without brand, product image source, product image alt, productFinalPrice, productColorName, productDescriptionHtmlSimple, addToCart */
 
 // Handles Add to Cart clicks
-

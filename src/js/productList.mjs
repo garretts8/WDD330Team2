@@ -27,4 +27,3 @@ export async function productList(selector, category) {
     // render out the product list to the element
     renderListWithTemplate(productCardTemplate, elem, limited);
 }
-

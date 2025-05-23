@@ -6,7 +6,8 @@ finish setting everything up. */
 import { getParam } from "./utils.mjs";
 // import { findProductById } from "./productData.mjs";
 import productDetails from "./productDetails.mjs";
-
+import { loadHeaderFooter, updateCartIconCount } from "./utils.mjs";
+loadHeaderFooter(updateCartIconCount);
 const productId = getParam("product");
 productDetails(productId);
 
