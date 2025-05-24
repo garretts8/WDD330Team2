@@ -1,3 +1,5 @@
-// import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, updateCartIconCount } from "./utils.mjs";
 
-// loadHeaderFooter();
+loadHeaderFooter(updateCartIconCount);
+
+
