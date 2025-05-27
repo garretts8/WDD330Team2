@@ -18,7 +18,8 @@ export default defineConfig({
         main: resolve(__dirname, "src/index.html"),
         cart: resolve(__dirname, "src/cart/index.html"),
         checkout: resolve(__dirname, "src/checkout/index.html"),
-        product: resolve(__dirname,"src/product_pages/index.html"),
+        product: resolve(__dirname, "src/product_pages/index.html"),
+        product_list: resolve(__dirname, "src/product-listing/index.html"),
         // product2: resolve(__dirname, "src/product_pages/marmot-ajax-3.html"),
         // product3: resolve(
         //   __dirname,
