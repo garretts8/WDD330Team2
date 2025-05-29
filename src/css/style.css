@@ -416,3 +416,13 @@ footer {
   height: auto;
   margin-bottom: 0.75rem;
 }
+
+.card__name {
+  font-size: 1rem;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ 
+ 
