@@ -1,6 +1,7 @@
 import { getData } from "./productData.mjs";
 import { renderListWithTemplate } from "./utils.mjs";
 
+
 function productCardTemplate(product) {
     return `<li class="product-card">
     <a href="/product_pages/index.html?product=${product.Id}">
@@ -12,6 +13,7 @@ function productCardTemplate(product) {
     <h2 class="card__name">${product.NameWithoutBrand}</h2>
     <p class="product-card__price">$${product.FinalPrice}</p></a>
     <p class="product-card__suggestedprice">$${product.SuggestedRetailPrice.toFixed(2)}</p></a>
+    <button class="quick-look" data-id="${product.Id}">🔍</button>
 
   </li>`
 }  
@@ -28,5 +30,53 @@ export async function productList(selector, category) {
     // renderListWithTemplate(productCardTemplate, elem, limited);
     renderListWithTemplate(productCardTemplate, elem, products);
     document.querySelector(".title").innerHTML = category;
+    initQuickLook(products);
 }
 
+function initQuickLook(products) {
+  const modal     = document.querySelector(".modal");
+  const closeBtn  = modal.querySelector(".modal-close");
+  
+  document.querySelectorAll(".quick-look").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      const prod = products.find(p => p.Id === id);
+      if (!prod) return;
+      
+      renderProductDetails(prod);
+      modal.classList.remove("hidden");
+
+      const viewLink = modal.querySelector("#viewDetails");
+      viewLink.href = `/product_pages/index.html?product=${prod.Id}`;
+
+      modal.classList.remove("hidden");
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+}
+
+function renderProductDetails(product) {
+  const discountPercentage = 
+    ((product.SuggestedRetailPrice - product.ListPrice)
+      / product.SuggestedRetailPrice) * 100;
+
+  document.querySelector("#productName").textContent = product.Brand.Name;
+  document.querySelector("#productNameWithoutBrand").textContent = 
+    product.NameWithoutBrand;
+  document.querySelector("#productImage").src = 
+    product.Images.PrimaryLarge;
+  document.querySelector("#productImage").alt = product.Name;
+  document.querySelector("#productSuggestedRetailPrice").textContent = 
+    "$" + product.SuggestedRetailPrice.toFixed(2);
+  document.querySelector("#productFinalPrice").textContent = 
+    "$" + product.FinalPrice;
+  document.querySelector("#productDiscountPercent").textContent = 
+    "Save " + discountPercentage.toFixed(0) + "%!";
+  document.querySelector("#productColorName").textContent =
+    "Colors: " + product.Colors[0].ColorName;
+  document.querySelector("#productDescriptionHtmlSimple").innerHTML =
+    product.DescriptionHtmlSimple;
+}
