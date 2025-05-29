@@ -70,7 +70,7 @@ function renderProductDetails() {
   const discountPercentage = ((product.SuggestedRetailPrice - product.ListPrice) / product.SuggestedRetailPrice) * 100;
   document.querySelector("#productName").innerHTML = product.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerHTML = product.NameWithoutBrand;
-  document.querySelector("#productImage").src = product.Image;
+  document.querySelector("#productImage").src = product.Images.PrimaryLarge;  
   document.querySelector("#productImage").alt = product.Name; 
   document.querySelector("#productSuggestedRetailPrice").innerHTML ="$" + product.SuggestedRetailPrice.toFixed(2);  
   document.querySelector("#productFinalPrice").innerHTML = "$" + product.FinalPrice; 
@@ -82,4 +82,3 @@ function renderProductDetails() {
 /* product name,  product without brand, product image source, product image alt, productFinalPrice, productColorName, productDescriptionHtmlSimple, addToCart */
 
 // Handles Add to Cart clicks
-

@@ -394,3 +394,35 @@ footer {
   display: none;
 }
 
+/* Styles for category list */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.product-card {
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+.product-card img {
+  max-width: 80px;
+  height: auto;
+  margin-bottom: 0.75rem;
+}
+
+.card__name {
+  font-size: 1rem;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ 
+ 
