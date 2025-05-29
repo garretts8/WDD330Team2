@@ -14,6 +14,9 @@ productDetails(productId);
 updateCartIconCount(); 
 
 
+
+
+
 // function addProductToCart(product) {
 //   let currentCart = getLocalStorage("so-cart") || [];
 //   currentCart.push(product);
