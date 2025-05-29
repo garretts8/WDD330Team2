@@ -35,7 +35,7 @@ export async function productList(selector, category) {
 
 function initQuickLook(products) {
   const modal     = document.querySelector(".modal");
-  const closeBtn  = modal.querySelector(".modal-close");
+  const closeBtn  = modal.querySelector(".modal-close2");
   
   document.querySelectorAll(".quick-look").forEach(btn => {
     btn.addEventListener("click", () => {
