@@ -95,3 +95,18 @@ export async function loadHeaderFooter() {
     await renderWithTemplate(footerTemplateFn, footerElement);
   }
 }
+
+// Add these to your existing utils.mjs
+
+export function getCurrentUser() {
+  return getLocalStorage("so-user");
+}
+
+export function isLoggedIn() {
+  return !!getCurrentUser();
+}
+
+export function logout() {
+  localStorage.removeItem("so-user");
+  window.location.href = "/";
+}
