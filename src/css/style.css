@@ -694,7 +694,26 @@ footer {
 
 
 
-/* quicklookup */
+/* quicklookup and buttons*/
+.title-and-sort span {
+  text-transform: capitalize;
+}
+
+.title-and-sort {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buttons {
+  font-size: 10px;
+  display:flex;
+  gap:10px;
+}
+
+.buttons button:hover {
+  opacity: 0.8;
+}
 
 .quick-look {
   background-color: #f9f9f9;
