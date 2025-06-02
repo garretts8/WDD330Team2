@@ -1,5 +1,9 @@
 import { productList } from "./productList.mjs";
 import { loadHeaderFooter, updateCartIconCount, getCurrentUser } from "./utils.mjs";
+import { showWelcomeModal } from './welcomeBanner.js';
+
+
+
 productList(".product-list", "tents");
 
 loadHeaderFooter().then(() => {
@@ -55,14 +59,8 @@ if (form) {
 }
 
 
-// const form = document.getElementById("newsletter-form");
-// if (form) {
-//   form.addEventListener("submit", e => {
-//     e.preventDefault();
-//     const email = document.getElementById("newsletter-email").value;
-    
-//     alert(`Thanks for subscribing, ${email}!`);
-//     form.reset();
-//   });
-// }
+// Show Modal
+showWelcomeModal();
+
+
 
