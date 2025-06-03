@@ -1,6 +1,8 @@
 import { getData } from "./productData.mjs";
 import { renderListWithTemplate } from "./utils.mjs";
 
+let currentSelector = null;
+let currentCategory = null;
 
 function productCardTemplate(product) {
     return `<li class="product-card">
@@ -20,6 +22,8 @@ function productCardTemplate(product) {
 
 export async function productList(selector, category) {
     
+    currentSelector = selector;
+    currentCategory = category;
     // get the element we will insert the list into from the selector
     const elem = document.querySelector(selector);
     // get the list of products 
@@ -32,6 +36,103 @@ export async function productList(selector, category) {
     document.querySelector(".title").innerHTML = category;
     initQuickLook(products);
 }
+
+//alphabetical sort
+const sortButton = document.querySelector(".sort-btn")
+
+async function handleSortedAlphabetList(selector, category) {
+    const elem = document.querySelector(selector);
+    const products = await getData(category);
+
+    products.sort((a,b) =>
+      a.NameWithoutBrand.localeCompare(b.NameWithoutBrand)
+    );
+    console.log(products);
+
+    elem.innerHTML = "";
+    renderListWithTemplate(productCardTemplate, elem, products);
+    document.querySelector(".title").innerHTML = category;
+    initQuickLook(products);
+}
+
+if (sortButton) {
+  sortButton.addEventListener("click", () => {
+    handleSortedAlphabetList(currentSelector, currentCategory);
+  });
+}
+
+const sortButton4 = document.querySelector(".sort-btn4")
+
+async function handleSortedAlphabetZList(selector, category) {
+    const elem = document.querySelector(selector);
+    const products = await getData(category);
+
+    products.sort((a,b) =>
+      b.NameWithoutBrand.localeCompare(a.NameWithoutBrand)
+    );
+    console.log(products);
+
+    elem.innerHTML = "";
+    renderListWithTemplate(productCardTemplate, elem, products);
+    document.querySelector(".title").innerHTML = category;
+    initQuickLook(products);
+}
+
+if (sortButton4) {
+  sortButton4.addEventListener("click", () => {
+    handleSortedAlphabetZList(currentSelector, currentCategory);
+  });
+}
+
+
+//lowest price sort
+const sortButton2 = document.querySelector(".sort-btn2")
+
+async function handleSortedPriceList(selector, category) {
+    const elem = document.querySelector(selector);
+    const products = await getData(category);
+
+    products.sort((a,b) =>
+      a.FinalPrice- b.FinalPrice
+    );
+    console.log(products);
+
+    elem.innerHTML = "";
+    renderListWithTemplate(productCardTemplate, elem, products);
+    document.querySelector(".title").innerHTML = category;
+    initQuickLook(products);
+}
+
+if (sortButton2) {
+  sortButton2.addEventListener("click", () => {
+    handleSortedPriceList(currentSelector, currentCategory);
+  });
+}
+
+const sortButton3 = document.querySelector(".sort-btn3")
+
+async function handleSortedHighPriceList(selector, category) {
+    const elem = document.querySelector(selector);
+    const products = await getData(category);
+
+    products.sort((a,b) =>
+      a.FinalPrice + b.FinalPrice
+    );
+    console.log(products);
+
+    elem.innerHTML = "";
+    renderListWithTemplate(productCardTemplate, elem, products);
+    document.querySelector(".title").innerHTML = category;
+    initQuickLook(products);
+}
+
+if (sortButton3) {
+  sortButton3.addEventListener("click", () => {
+    handleSortedHighPriceList(currentSelector, currentCategory);
+  });
+}
+
+//highest price sort
 
 function initQuickLook(products) {
   const modal     = document.querySelector(".modal");
@@ -58,6 +159,7 @@ function initQuickLook(products) {
   });
 }
 
+//this is for the modal for quicklook
 function renderProductDetails(product) {
   const discountPercentage = 
     ((product.SuggestedRetailPrice - product.ListPrice)
