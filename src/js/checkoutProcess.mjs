@@ -1,34 +1,24 @@
 import { getLocalStorage } from "./utils.mjs";
-import { checkout as externalCheckout } from "./externalServices.mjs";
 
-function packageItems(items) {
-  return items.map(item => ({
-    id: item.Id,
-    name: item.Name,
-    price: item.FinalPrice,
-    quantity: item.quantity || 1
-  }));
-}
+const checkoutProcess = {
+  key: "",
+  outputSelector: "",
+  list: [],
+  itemTotal: 0,
+  itemCount: 0,
+  shipping: 0,
+  tax: 0,
+  orderTotal: 0,
 
-export default class checkoutProcess {
-  constructor(key, outputSelector) {
+  init: function (key, outputSelector) {
     this.key = key;
     this.outputSelector = outputSelector;
     this.list = getLocalStorage(key) || [];
-    this.itemTotal = 0;
-    this.itemCount = 0;
-    this.shipping = 0;
-    this.tax = 0;
-    this.orderTotal = 0;
-  }
-
-  init() {
-    this.list = getLocalStorage(this.key) || [];
     this.calculateItemSummary();
     this.calculateOrdertotal();
-  }
+  },
 
-  calculateItemSummary() {
+  calculateItemSummary: function () {
     const cartItems = getLocalStorage("so-cart") || [];
     const orderItemsContainer = document.getElementById("order-items");
     const subtotalElement = document.getElementById("subtotal");
@@ -58,13 +48,13 @@ export default class checkoutProcess {
 
     orderItemsContainer.innerHTML = itemsHtml;
     subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-  }
+  },
 
-  calculateOrdertotal() {
+  calculateOrdertotal: function () {
     const subtotalText = document.getElementById("subtotal").textContent || "$0";
     const subtotalValue = parseFloat(subtotalText.replace("$", "")) || 0;
 
-    this.shipping = 12;  // as required by the instructions example
+    this.shipping = 5.99;
     this.tax = parseFloat((subtotalValue * 0.08).toFixed(2));
     this.orderTotal = parseFloat(
       (subtotalValue + this.shipping + this.tax).toFixed(2)
@@ -77,42 +67,39 @@ export default class checkoutProcess {
     document.getElementById("total").textContent = `$${this.orderTotal.toFixed(
       2
     )}`;
-  }
+  },
 
-  async checkout(form) {
+  checkout: function (form) {
     const formData = new FormData(form);
     const cartItems = getLocalStorage(this.key) || [];
-    const packagedItems = packageItems(cartItems);
+
+    const itemCount = cartItems.reduce((sum, item) => {
+      return sum + (Number(item.quantity) || 1);
+    }, 0);
 
     const orderData = {
-      orderDate: new Date().toISOString(),
-      fname: formData.get("fname"),
-      lname: formData.get("lname"),
-      street: formData.get("street"),
-      city: formData.get("city"),
-      state: formData.get("state"),
-      zip: formData.get("zip"),
-      cardNumber: formData.get("cardNumber"),
-      expiration: formData.get("expiration"),
-      code: formData.get("code"),
-      items: packagedItems,
-      orderTotal: document.getElementById("total").textContent.replace("$", ""),
-      shipping: this.shipping,
-      tax: document.getElementById("tax").textContent.replace("$", "")
+      itemCount: itemCount,
+      shipping: Object.fromEntries(formData.entries()),
+      payment: {
+        cardNumber: formData.get("cardNumber"),
+        expDate: formData.get("expDate"),
+        cvv: formData.get("cvv"),
+      },
+      items: cartItems,
+      totals: {
+        subtotal: document.getElementById("subtotal").textContent,
+        shipping: document.getElementById("shipping").textContent,
+        tax: document.getElementById("tax").textContent,
+        total: document.getElementById("total").textContent,
+      },
     };
 
-    console.log("Submitting order:", orderData);
+    console.log("Order data:", orderData);
 
-    try {
-      const response = await externalCheckout(orderData);
-      console.log("Order response:", response);
+    alert("Order placed successfully!");
+    localStorage.removeItem(this.key);
+    window.location.href = "/";
+  },
+};
 
-      alert("Order placed successfully!");
-      localStorage.removeItem(this.key);
-      window.location.href = "/";
-    } catch (err) {
-      console.error("Order submission failed:", err);
-      alert("There was an error submitting your order. Please try again.");
-    }
-  }
-}
+export default checkoutProcess;
