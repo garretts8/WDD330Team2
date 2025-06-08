@@ -1,6 +1,6 @@
 import { productList } from "./productList.mjs";
 import { loadHeaderFooter, updateCartIconCount, getCurrentUser } from "./utils.mjs";
-import { showWelcomeModal } from './welcomeBanner.js';
+import { showWelcomeModal } from "./welcomeBanner.js";
 
 
 
@@ -61,6 +61,3 @@ if (form) {
 
 // Show Modal
 showWelcomeModal();
-
-
-
