@@ -1,5 +1,5 @@
 
-import { findProductById } from "./productData.mjs";
+import { findProductById } from "./externalServices.mjs";
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 // three functions are recommended: productDetails(productId), addToCart() -moved from the 

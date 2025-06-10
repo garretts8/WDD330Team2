@@ -1,8 +1,13 @@
 import checkoutProcess from "./checkoutProcess.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+
+loadHeaderFooter();
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  checkoutProcess.init("so-cart");
+  const checkout = new checkoutProcess("so-cart", "#order-summary");
+
+  checkout.init();
 
   const checkoutForm = document.getElementById("checkout-form");
   if (!checkoutForm) {
@@ -12,6 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   checkoutForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    checkoutProcess.checkout(checkoutForm);
+    checkout.checkout(checkoutForm);
   });
 });
