@@ -23,3 +23,4 @@ addcartButton.addEventListener("click", function() {
     behavior: "smooth"
   });
 });
+

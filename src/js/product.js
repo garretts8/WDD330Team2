@@ -4,7 +4,7 @@ function getParams. Then we use the function from productDetails with the produc
 finish setting everything up. */
 // import { setLocalStorage, getLocalStorage} from "./utils.mjs";
 import { getParam } from "./utils.mjs";
-// import { findProductById } from "./productData.mjs";
+// import { findProductById } from "./externalServices.mjs";
 import productDetails from "./productDetails.mjs";
 import {updateCartIconCount } from "./utils.mjs";
 

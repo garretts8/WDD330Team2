@@ -58,9 +58,12 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
+  const imageSrc = item.Images?.PrimaryMedium || 
+                   item.image || 
+                   "/images/placeholder.jpg"; // fallback image
   return `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
-      <img src="${item.Images.PrimarySmall}" alt="${item.Name}" />
+     <img src="${imageSrc}" alt="${item.Name}" />
     </a>
     <a href="#">
       <h2 class="card__name">${item.Name}</h2>
@@ -106,7 +109,6 @@ function removeFromCart(productId) {
 }
 
 
-
 function updateCartIconCount() {
   const count = getCartItemCount();
   const cartCountEl = document.getElementById("cart-count");
@@ -115,3 +117,5 @@ function updateCartIconCount() {
   if (cartCountEl) cartCountEl.textContent = count;
   if (cartCountPlainEl) cartCountPlainEl.textContent = count;
 }
+
+

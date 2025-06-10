@@ -12,6 +12,3 @@ loadHeaderFooter().then(() => {
 
 
 // import productList from "./productList.mjs";
-
-
-
