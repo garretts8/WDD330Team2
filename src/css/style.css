@@ -28,21 +28,15 @@ img {
 }
 header {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   padding: 0 10px;
 }
-.logo {
-  line-height: 60px;
-  width: 245px;
-  overflow: hidden;
-  display: flex;
-  font-size: 30px;
-  text-align: right;
-  font-family: var(--font-headline);
-}
+
 .logo img {
-  width: 60px;
-  height: 60px;
+  width: 250px;
+  height: auto;
 }
 .logo a {
   text-decoration: none;
@@ -52,10 +46,12 @@ header {
   position: relative;
 }
 .hero .logo {
+  text-align: center;
   position: absolute;
   left: calc(50% - 60px);
   bottom: -10px;
   background-color: white;
+     font-family: var(--font-headline);
 }
 .logo--square {
   font-size: var(--small-font);
@@ -80,6 +76,66 @@ header {
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
+   font-family: var(--font-headline);
+}
+
+/* Seach Bar */
+.search-wrapper {
+  display: none;
+
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  max-width: 300px;
+  box-sizing: border-box;
+  position: relative;
+
+  width: 100%;
+}
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 27px;
+  width: 20px;
+  height: 20px;
+  color: #666;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem; /* Espacio a la izquierda para el ícono */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+}
+
+/* @media (max-width: 600px) {
+  .search-input {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+}
+ */
+@media (min-width: 768px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .search-wrapper {
+    display: flex;
+    align-items: center; /* si quieres centrar verticalmente */
+    gap: 0.5rem; /* espaciado entre elementos */
+  }
 }
 
 button {
@@ -112,14 +168,38 @@ button.remove-item {
 
 /* Cart icon styles */
 .cart {
-  padding-top: 1em;
+  display: flex;
+  align-items: center;
   position: relative;
-  text-align: center;
+}
+
+.cart a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
 }
 
 .cart svg {
-  width: 25px;
+  width: 24px;
+  height: 24px;
 }
+
+.cart-count {
+  margin-left: 4px;
+  font-weight: bold;
+  color: red;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* espaciado entre Sign Up y Login */
+}
+
 .cart:hover svg {
   fill: gray;
 }
@@ -316,8 +396,6 @@ button.remove-item {
 
 .cart-count {
   position: absolute;
-  top: 21px;
-  right: 40px;
   background-color: rgb(240, 167, 11);
   color: black;
   border-radius: 50%;
@@ -420,7 +498,6 @@ footer {
   display: none;
 }
 
-
 /* Register Modal Styles */
 #registerModal {
   position: fixed;
@@ -456,9 +533,11 @@ footer {
   cursor: pointer;
 }
 .modal-content button:hover {
- filter: brightness(1.1);
+  filter: brightness(1.1);
   transform: scale(1.05);
-  transition: filter 0.3s ease, transform 0.2s ease;
+  transition:
+    filter 0.3s ease,
+    transform 0.2s ease;
 }
 
 /* Styles for category list */
@@ -491,9 +570,8 @@ footer {
   overflow: hidden;
   text-overflow: ellipsis;
 }
- 
 
- /* Checkout Page Styles */
+/* Checkout Page Styles */
 .checkout-container {
   max-width: 800px;
   margin: 0 auto;
@@ -561,7 +639,7 @@ footer {
 .checkout-button {
   grid-column: 1 / -1;
   padding: 12px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
@@ -628,7 +706,7 @@ footer {
 .signup-button {
   grid-column: 1 / -1;
   padding: 12px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
@@ -648,7 +726,7 @@ footer {
 }
 
 .login-link a {
-  color: #4CAF50;
+  color: #4caf50;
   text-decoration: none;
 }
 
@@ -663,11 +741,11 @@ footer {
   }
 }
 
-
 .user-greeting {
-  margin-right: 15px;
+  margin-left: 15px;
   color: var(--primary-color);
   font-weight: bold;
+  white-space: nowrap;
 }
 
 /* Update nav styles */
@@ -677,14 +755,16 @@ footer {
   gap: 1rem;
 }
 
-.login-link, .signup-link {
+.login-link,
+.signup-link {
   color: var(--primary-color);
   text-decoration: none;
   font-weight: bold;
-  
+  white-space: nowrap;
 }
 
-.login-link:hover, .signup-link:hover {
+.login-link:hover,
+.signup-link:hover {
   text-decoration: none;
 }
 
@@ -692,23 +772,21 @@ footer {
   padding-bottom: 14px;
 }
 
-
-
 /* quicklookup and buttons*/
 .title-and-sort span {
   text-transform: capitalize;
 }
 
 .title-and-sort {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
 .buttons {
   font-size: 10px;
-  display:flex;
-  gap:10px;
+  display: flex;
+  gap: 10px;
 }
 
 .buttons button:hover {
@@ -718,9 +796,9 @@ footer {
 .quick-look {
   background-color: #f9f9f9;
   font-size: smaller;
-  transition: all .2s;
+  transition: all 0.2s;
 }
- 
+
 .quick-look:hover {
   background-color: var(--primary-color);
   font-size: smaller;
@@ -728,16 +806,18 @@ footer {
 
 .modal {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.modal.hidden { 
+.modal.hidden {
   display: none;
- }
+}
 
 .modal-content {
   background: #fff;
@@ -749,17 +829,15 @@ footer {
   overflow-x: hidden;
   position: relative;
   font-family: var(--font-body);
-  max-width: 500px;     
-  padding: 1em;          
-  text-align: left;      
+  max-width: 500px;
+  padding: 1em;
+  text-align: left;
 }
 
 .modal-content img {
   width: 100%;
   margin-bottom: 1em;
 }
-
-
 
 .modal-content p,
 .modal-content #productDescriptionHtmlSimple {
@@ -773,21 +851,19 @@ footer {
 
 .modal-content #productSuggestedRetailPrice {
   text-decoration: line-through;
-  color: var(--light-grey);       
-  font-size: var(--small-font);    
+  color: var(--light-grey);
+  font-size: var(--small-font);
   margin-bottom: 0.5em;
   display: block;
 }
 
-
 .modal-content #productFinalPrice {
-  font-size: var(--large-font);    
+  font-size: var(--large-font);
   font-weight: bold;
   color: var(--dark-grey);
   margin-bottom: 0.25em;
   display: block;
 }
-
 
 .modal-content #productDiscountPercent {
   font-size: var(--small-font);
@@ -797,19 +873,17 @@ footer {
   display: block;
 }
 
-
 .modal-close2 {
   position: absolute;
-  top: 0; right: 0;
+  top: 0;
+  right: 0;
   background: none;
   border: none;
   font-size: 2rem;
   cursor: pointer;
-  color:black;
-  transition: all .2s;
+  color: black;
+  transition: all 0.2s;
 }
-
-
 
 .view-details {
   display: inline-block;
@@ -823,5 +897,3 @@ footer {
 .view-details:hover {
   opacity: 0.9;
 }
-
-
