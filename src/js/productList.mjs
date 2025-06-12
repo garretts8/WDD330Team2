@@ -182,3 +182,4 @@ function renderProductDetails(product) {
   document.querySelector("#productDescriptionHtmlSimple").innerHTML =
     product.DescriptionHtmlSimple;
 }
+
