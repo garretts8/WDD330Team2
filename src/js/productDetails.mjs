@@ -1,6 +1,6 @@
 
 import { findProductById } from "./externalServices.mjs";
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
 
 // three functions are recommended: productDetails(productId), addToCart() -moved from the 
 // product.js, and renderProductDetails().
@@ -63,8 +63,12 @@ function addToCart() {
   }
 
   setLocalStorage("so-cart", cart);
+  alert(`${product.Brand.Name} was successfully added!`)
   window.location.reload();
+  
 }
+
+
 // method to fill in the details for the current product in the HTML.
 function renderProductDetails() {
   const discountPercentage = ((product.SuggestedRetailPrice - product.ListPrice) / product.SuggestedRetailPrice) * 100;

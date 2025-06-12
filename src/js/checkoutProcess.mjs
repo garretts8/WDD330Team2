@@ -1,5 +1,6 @@
 import { getLocalStorage } from "./utils.mjs";
-import { checkout as externalCheckout } from "./externalServices.mjs";
+import { checkout as checkoutProccess } from "./externalServices.mjs";
+import { alertMessage, removeAllAlerts } from "./utils.mjs";
 
 function packageItems(items) {
   return items.map(item => ({
@@ -103,16 +104,21 @@ export default class checkoutProcess {
 
     console.log("Submitting order:", orderData);
 
-    try {
-      const response = await externalCheckout(orderData);
-      console.log("Order response:", response);
 
-      alert("Order placed successfully!");
+    //checkoutProccess
+    try {
+      const response = await checkoutProccess(orderData);
+      console.log("Order response:", response);
+      //alert("Order placed successfully!");
+      window.location.href = "/checkout/success.html";
       localStorage.removeItem(this.key);
-      window.location.href = "/";
     } catch (err) {
-      console.error("Order submission failed:", err);
-      alert("There was an error submitting your order. Please try again.");
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
     }
   }
 }
+
+
