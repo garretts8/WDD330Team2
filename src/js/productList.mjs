@@ -1,4 +1,4 @@
-import { getData } from "./externalServices.mjs";
+import { getProductsByCategory } from "./externalServices.mjs";
 import { renderListWithTemplate } from "./utils.mjs";
 
 let currentSelector = null;
@@ -27,7 +27,7 @@ export async function productList(selector, category) {
     // get the element we will insert the list into from the selector
     const elem = document.querySelector(selector);
     // get the list of products 
-    const products = await getData(category);
+    const products = await getProductsByCategory(category);
     console.log(products);
     // const limited = products.slice(0, 4);
     // render out the product list to the element
@@ -42,7 +42,7 @@ const sortButton = document.querySelector(".sort-btn")
 
 async function handleSortedAlphabetList(selector, category) {
     const elem = document.querySelector(selector);
-    const products = await getData(category);
+    const products = await getProductsByCategory(category);
 
     products.sort((a,b) =>
       a.NameWithoutBrand.localeCompare(b.NameWithoutBrand)
@@ -65,7 +65,7 @@ const sortButton4 = document.querySelector(".sort-btn4")
 
 async function handleSortedAlphabetZList(selector, category) {
     const elem = document.querySelector(selector);
-    const products = await getData(category);
+    const products = await getProductsByCategory(category);
 
     products.sort((a,b) =>
       b.NameWithoutBrand.localeCompare(a.NameWithoutBrand)
@@ -90,7 +90,7 @@ const sortButton2 = document.querySelector(".sort-btn2")
 
 async function handleSortedPriceList(selector, category) {
     const elem = document.querySelector(selector);
-    const products = await getData(category);
+    const products = await getProductsByCategory(category);
 
     products.sort((a,b) =>
       a.FinalPrice- b.FinalPrice
@@ -113,7 +113,7 @@ const sortButton3 = document.querySelector(".sort-btn3")
 
 async function handleSortedHighPriceList(selector, category) {
     const elem = document.querySelector(selector);
-    const products = await getData(category);
+    const products = await getProductsByCategory(category);
 
     products.sort((a,b) =>
       a.FinalPrice + b.FinalPrice
