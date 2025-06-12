@@ -825,3 +825,27 @@ footer {
 }
 
 
+/* Wishlist */
+.wishlist-btn, .move-to-cart, .remove-wishlist {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.wishlist-btn:hover, .move-to-cart:hover {
+  background: #e8f4f8;
+}
+
+.remove-wishlist:hover {
+  background: #f8e8e8;
+}
+
+.wishlist-link {
+  margin-left: 15px;
+  color: #333;
+  text-decoration: none;
+}

@@ -44,6 +44,13 @@ function renderCartContents() {
       const productId = event.target.dataset.id;
       removeFromCart(productId);
     });
+
+    document.querySelectorAll(".wishlist-btn").forEach(button => {
+  button.addEventListener("click", (event) => {
+    const productId = event.target.dataset.id;
+    toggleWishlist(productId);
+      });
+    });
   });
 
   document.querySelectorAll(".cart-quantity-input").forEach(input => {
@@ -74,6 +81,7 @@ function cartItemTemplate(item) {
 
     <p class="cart-card__price">$${item.FinalPrice}</p>
     <button class="remove-item" data-id="${item.Id}">x</button>
+    <button class="wishlist-btn" data-id="${item.Id}">❤️ Add to Wishlist</button>
   </li>`;
 }
 
@@ -114,4 +122,47 @@ function updateCartIconCount() {
 
   if (cartCountEl) cartCountEl.textContent = count;
   if (cartCountPlainEl) cartCountPlainEl.textContent = count;
+}
+
+
+// Added wishlist functionality
+function toggleWishlist(productId) {
+  const user = getLocalStorage("so-user");
+  if (!user) {
+    alert("Please login to use the wishlist feature");
+    window.location.href = "/login/"; // Redirect to login page
+    return;
+  }
+
+  const cart = getLocalStorage("so-cart") || [];
+  const item = cart.find(item => item.Id === productId);
+  
+  if (!item) return;
+
+  const users = getLocalStorage("so-users") || [];
+  const userIndex = users.findIndex(u => u.id === user.id);
+  
+  if (userIndex === -1) {
+    console.error("User not found in users list");
+    return;
+  }
+
+  const wishlistIndex = users[userIndex].wishlist?.findIndex(w => w.Id === productId) ?? -1;
+  
+  if (wishlistIndex === -1) {
+    // Add to wishlist - ensure wishlist array exists
+    if (!users[userIndex].wishlist) {
+      users[userIndex].wishlist = [];
+    }
+    users[userIndex].wishlist.push(item);
+    alert("Added to wishlist!");
+  } else {
+    // Remove from wishlist
+    users[userIndex].wishlist.splice(wishlistIndex, 1);
+    alert("Removed from wishlist!");
+  }
+  
+  setLocalStorage("so-users", users);
+  setLocalStorage("so-user", users[userIndex]); // Update current user
+  renderCartContents(); // Refresh the cart display
 }

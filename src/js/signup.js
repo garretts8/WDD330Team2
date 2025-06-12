@@ -32,7 +32,8 @@ function setupFormSubmission() {
         city: form.city.value,
         state: form.state.value,
         zip: form.zip.value,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        wishlist: [] // Add this line for the wishlist
       };
       
       try {
