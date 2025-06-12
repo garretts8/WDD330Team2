@@ -1,6 +1,6 @@
 
-import { findProductById } from "./externalServices.mjs";
-import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
+import { findProductById, getProductsByCategory } from "./externalServices.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 // three functions are recommended: productDetails(productId), addToCart() -moved from the 
 // product.js, and renderProductDetails().
@@ -18,7 +18,8 @@ export default async function productDetails(productId) {
       }
   
       renderProductDetails();
-  
+      
+
       const addButton = document.getElementById("addToCart");
       if (addButton) {
         addButton.addEventListener("click", addToCart);
@@ -86,3 +87,37 @@ function renderProductDetails() {
 /* product name,  product without brand, product image source, product image alt, productFinalPrice, productColorName, productDescriptionHtmlSimple, addToCart */
 
 // Handles Add to Cart clicks
+
+function getRandomProducts(products, count) {
+  const shuffled = products.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+async function displayRecommendedProducts() {
+  const categories = ['tents', 'backpacks', 'sleepingbags', 'hammocks'];
+
+
+  const productArrays = await Promise.all(categories.map(getProductsByCategory));
+
+
+  const allProducts = productArrays.flat();
+
+
+  const recommendedProducts = getRandomProducts(allProducts, 3);
+
+
+  const recommendedDivs = document.querySelectorAll('.recommended-product');
+  recommendedProducts.forEach((product, index) => {
+    const container = recommendedDivs[index];
+    container.querySelector('.rproductName').textContent = product.Brand.Name;
+    container.querySelector('.rproductNameWithoutBrand').textContent = product.NameWithoutBrand;
+    container.querySelector('.rproductImage').src = product.Images.PrimaryMedium;
+    container.querySelector('.rproductImage').alt = `Image of ${product.Name}`;
+
+
+    container.querySelector('.rproductLink').href = `/product_pages/index.html?product=${product.Id}`;
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', displayRecommendedProducts);
