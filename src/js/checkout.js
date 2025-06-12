@@ -5,9 +5,9 @@ loadHeaderFooter();
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const checkout = new checkoutProcess("so-cart", "#order-summary");
+  const checkoutProcessInstance = new checkoutProcess("so-cart", "#order-summary");
 
-  checkout.init();
+  checkoutProcessInstance.init();
 
   const checkoutForm = document.getElementById("checkout-form");
   if (!checkoutForm) {
@@ -15,8 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+
   checkoutForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    checkout.checkout(checkoutForm);
+    var chk_status = checkoutForm.checkValidity();
+    checkoutForm.reportValidity();
+    if(chk_status) 
+      checkoutProcessInstance.checkout(checkoutForm);
   });
 });

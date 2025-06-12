@@ -925,3 +925,26 @@ footer {
 .view-details:hover {
   opacity: 0.9;
 }
+
+
+/* success.html */
+
+.order-complete a{
+  text-decoration: none;
+  color:var(--secondary-color);
+  transition: all .2s;
+  border: 1px solid var(--dark-grey);
+  background-color: white;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.order-complete {
+  min-height: 500px;
+}
+
+.order-complete a:hover{
+  color:var(--primary-color);
+  background-color: var(--secondary-color);
+}
+

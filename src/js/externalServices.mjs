@@ -1,14 +1,14 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-function convertToJson(res) {
+async function convertToJson(res) {
+  const jsonResponse = await res.json();
   if (res.ok) {
-    return res.json();
+    return jsonResponse;
   } else {
-    throw new Error("Bad Response");
+    throw { name: "servicesError", message: jsonResponse };
   }
 }
-
-export async function getData(category) {
+export async function getProductsByCategory(category) {
   const response = await fetch(baseURL + `products/search/${category}`);
   const data = await convertToJson(response);
   return data.Result;
@@ -29,8 +29,5 @@ export async function checkout(payload) {
     body: JSON.stringify(payload)
   };
   return await fetch("http://server-nodejs.cit.byui.edu:3000/checkout", options)
-    .then(res => {
-      if (res.ok) return res.json();
-      throw new Error("Failed to submit order");
-    });
+    .then(convertToJson);
 }
