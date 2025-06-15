@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, getCartItemCount } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, getCartItemCount, getCurrentUser } from "./utils.mjs";
 
 export default function shoppingCart() {
   renderCartContents();
@@ -7,6 +7,7 @@ export default function shoppingCart() {
 
 function renderCartContents() {
   let cartItems = getLocalStorage("so-cart") || [];
+  const user = getCurrentUser();
 
   // Safety: ensure array format
   if (!Array.isArray(cartItems)) {
@@ -20,10 +21,11 @@ function renderCartContents() {
   });
 
   // Render items
-  const htmlItems = cartItems.map(cartItemTemplate);
+  const htmlItems = cartItems.map(item => cartItemTemplate(item, user));
     const output = document.querySelector(".product-list");
     output.innerHTML = htmlItems.join("");
-      const cartSummary = document.querySelector(".cart-summary");
+
+    const cartSummary = document.querySelector(".cart-summary");
   const cartTotal = document.querySelector(".cart-summary__total");
 
   if (cartItems.length > 0) {
@@ -46,6 +48,13 @@ function renderCartContents() {
     });
   });
 
+  document.querySelectorAll(".wishlist-item").forEach(button => {
+    button.addEventListener("click", (event) => {
+      const productId = event.target.dataset.id;
+      moveToWishlist(productId);
+    });
+  });
+
   document.querySelectorAll(".cart-quantity-input").forEach(input => {
     input.addEventListener("change", (event) => {
       const newQty = parseInt(event.target.value);
@@ -57,7 +66,7 @@ function renderCartContents() {
   });
 }
 
-function cartItemTemplate(item) {
+function cartItemTemplate(item, user) {
   return `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img src="${item.Images.PrimarySmall}" alt="${item.Name}" />
@@ -73,8 +82,45 @@ function cartItemTemplate(item) {
     </p>
 
     <p class="cart-card__price">$${item.FinalPrice}</p>
+    <div class="cart-card__actions">
     <button class="remove-item" data-id="${item.Id}">x</button>
+    ${user ? `<button class="wishlist-item" data-id="${item.Id}">Add to Wishlist</button>` : ""}
+    </div>
   </li>`;
+}
+
+// Move items from cart to wish list page. Wish list specific to user.
+function moveToWishlist(productId) {
+  const user = getCurrentUser();
+  if (!user) {
+    alert("Please login to use the wishlist feature.");
+    return;
+  }
+
+  let cart = getLocalStorage("so-cart") || [];
+  let wishlist = getLocalStorage(`so-wishlist-${user.id}`) || [];
+
+  const itemIndex = cart.findIndex(item => item.Id === productId);
+  if (itemIndex === -1) return;
+
+  const item = cart[itemIndex];
+  
+  // Add to wishlist if not already there
+  const existingWishlistItem = wishlist.find(wishItem => wishItem.Id === productId);
+  if (!existingWishlistItem) {
+    wishlist.push(item);
+  }
+
+  // Remove from cart
+  cart.splice(itemIndex, 1);
+
+  // Update storage
+  setLocalStorage("so-cart", cart);
+  setLocalStorage(`so-wishlist-${user.id}`, wishlist);
+
+  // Re-render
+  renderCartContents();
+  updateCartIconCount();
 }
 
 function updateCartQuantity(productId, newQuantity) {
