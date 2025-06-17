@@ -787,6 +787,9 @@ footer {
   .signup-form {
     grid-template-columns: 1fr;
   }
+  .recommended-products{
+  flex-direction: column;
+}
 }
 
 .user-greeting {
@@ -972,6 +975,7 @@ footer {
   background-color: var(--secondary-color);
 }
 
+
 /* Wishlist Styles */
 .wish-list {
   list-style: none;
@@ -1076,4 +1080,67 @@ footer {
 
 .wishlistButton a:hover { 
   color: #964414;
+=======
+.recommended-products {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+  margin: 1.5em 0;
+}
+
+.recommended-products div {
+  background-color: #f9f9f9;
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  max-width: 220px;
+  min-width: 220px;
+  text-align: center;
+  padding: 0.75em;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recommended-products div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.recommended-products img {
+  border-radius: 6px;
+  margin-bottom: 0.75em;
+}
+
+.rproductName {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+  margin-bottom: 0.2em;
+}
+
+.rheader {
+  border-top: 2px solid var(--primary-color);
+  margin-top: 50px;
+  padding-top:20px;
+  text-align: center;
+  font-size: larger;
+}
+
+.rproductNameWithoutBrand {
+  font-size: 1rem;
+  color: var(--dark-grey);
+  margin-bottom: 0.4em;
+}
+
+@media (max-width: 800px) {
+  .recommended-products {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recommended-products div {
+    max-width: 200px;
+    min-width: 200px;
+  }
+
 }
