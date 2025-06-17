@@ -1,10 +1,12 @@
-import { loadHeaderFooter, getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter, getParam, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export default function login() {
   loadHeaderFooter().then(() => {
     setupFormSubmission();
   });
 }
+
+const redircet = getParam("redirect") || "/";
 
 function setupFormSubmission() {
   const form = document.getElementById("login-form");
@@ -37,7 +39,7 @@ function setupFormSubmission() {
         setLocalStorage("so-user", user);
         
         alert("Login successful!");
-        window.location.href = "/";
+        window.location.href = redirect;
       } catch (err) {
         console.error("Login error:", err);
         alert("Error logging in. Please try again.");
