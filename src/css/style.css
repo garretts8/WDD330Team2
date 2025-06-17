@@ -1080,7 +1080,8 @@ footer {
 
 .wishlistButton a:hover { 
   color: #964414;
-=======
+}
+
 .recommended-products {
   display: flex;
   flex-direction: row;
