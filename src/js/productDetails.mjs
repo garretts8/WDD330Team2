@@ -70,20 +70,24 @@ function addToCart() {
 }
 
 
+
 // method to fill in the details for the current product in the HTML.
 function renderProductDetails() {
   const discountPercentage = ((product.SuggestedRetailPrice - product.ListPrice) / product.SuggestedRetailPrice) * 100;
-  document.querySelector("#productName").innerHTML = product.Brand.Name;
-  document.querySelector("#productNameWithoutBrand").innerHTML = product.NameWithoutBrand;
-  document.querySelector("#productImage").src = product.Images.PrimaryLarge;  
+  document.querySelector("#productName").textContent = product.Brand.Name;
+  document.querySelector("#productNameWithoutBrand").textContent = product.NameWithoutBrand;
+   document.querySelector("#productImage").src = product.Images.PrimaryLarge;  
   document.querySelector("#productImage").alt = product.Name; 
-  document.querySelector("#productSuggestedRetailPrice").innerHTML ="$" + product.SuggestedRetailPrice.toFixed(2);  
-  document.querySelector("#productFinalPrice").innerHTML = "$" + product.FinalPrice; 
-  document.querySelector("#productDiscountPercent").innerHTML = "Save "+ discountPercentage.toFixed(0) +"%!";
-  document.querySelector("#productColorName").innerHTML = "Colors: "+ product.Colors[0].ColorName; 
+  document.querySelector("#productSuggestedRetailPrice").textContent = "$" + product.SuggestedRetailPrice.toFixed(2);
+  document.querySelector("#productFinalPrice").textContent = "$" + product.FinalPrice;
+  document.querySelector("#productDiscountPercent").textContent = "Save " + discountPercentage.toFixed(0) + "%!";
+  document.querySelector("#productColorName").textContent = "Color: " + product.Colors[0].ColorName;
   document.querySelector("#productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
   document.querySelector("#addToCart").dataset.id = product.Id;
+
+  renderColorSwatches(product.Colors);
 }
+
 /* product name,  product without brand, product image source, product image alt, productFinalPrice, productColorName, productDescriptionHtmlSimple, addToCart */
 
 // Handles Add to Cart clicks
@@ -118,6 +122,36 @@ async function displayRecommendedProducts() {
     container.querySelector('.rproductLink').href = `/product_pages/index.html?product=${product.Id}`;
   });
 }
+
+
+function renderColorSwatches(colors) {
+  const swatchContainer = document.getElementById("colorSwatches");
+  swatchContainer.innerHTML = "";
+
+  colors.forEach((color, index) => {
+    const swatch = document.createElement("img");
+    swatch.src = color.ColorChipImageSrc;
+    swatch.alt = color.ColorName;
+
+    if (index === 0) swatch.classList.add("selected");
+
+    swatch.addEventListener("click", () => {
+      swatchContainer.querySelectorAll("img").forEach(i => i.classList.remove("selected"));
+      swatch.classList.add("selected");
+
+      document.querySelector("#productColorName").textContent = "Color: " + color.ColorName;
+    });
+
+    swatchContainer.appendChild(swatch);
+
+    if (index === 0) {
+      setTimeout(() => swatch.click(), 0);
+    }
+  });
+}
+
+
+
 
 
 document.addEventListener('DOMContentLoaded', displayRecommendedProducts);

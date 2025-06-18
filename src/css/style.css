@@ -1080,7 +1080,8 @@ footer {
 
 .wishlistButton a:hover { 
   color: #964414;
-=======
+}
+
 .recommended-products {
   display: flex;
   flex-direction: row;
@@ -1143,4 +1144,23 @@ footer {
     min-width: 200px;
   }
 
+}
+
+
+.color-swatches {
+  margin-top: 1em;
+  display: flex;
+  gap: 0.5em;
+}
+
+.color-swatches img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.color-swatches img.selected {
+  border-color: #000;
 }
