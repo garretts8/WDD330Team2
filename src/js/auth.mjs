@@ -1,29 +1,62 @@
 import { loginRequest } from "./externalServices.mjs";
 import { alertMessage, getLocalStorage, setLocalStorage } from "./utils.mjs";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const tokenKey = "so-token";
 
-export async function login(creds, redirect = "/") {
-    try {
-        const token = await loginRequest(creds)
-        setLocalStorage(tokenKey, token);
-        window.location = redirect;
-    } catch (error) {
-        alert("error.message.message");
-    }
+function isTokenValid(token) {
+    if (token) {
 
+        const decoded = jwtDecode(token);
+
+        let currentDate = new Date();
+
+        if (decoded.exp * 1000 < currentDate.getTime()) {
+
+        console.log("Token expired.");
+        return false;
+        } else {
+
+        console.log("Valid token");
+        return true;
+        }
+
+    } else return false;
 }
 
 export function checkLogin() {
-    
+  const token = getLocalStorage(tokenKey);
+
+  const valid = isTokenValid(token);
+
+  if (!valid) {
+    localStorage.removeItem(tokenKey);
+
+    const location = window.location;
+
+    console.log(location);
+
+    window.location = `/login/index.html?redirect=${location.pathname}`;
+  } else return token; 
 }
 
-export function isTokenValid() {
-    const token = getLocalStorage("so-token");
-    if (!token || !token.expires ) {
-        return false;
-    }
+export async function login(creds, redirect = "/") {
+  try {
+    const token = await loginRequest(creds);
+    console.log("Token received from loginRequest:", token);
 
-    return Date.now() < token.expires;
+    setLocalStorage(tokenKey, token);
+    console.log("Saved token:", getLocalStorage(tokenKey));
+
+   
+    setTimeout(() => {
+      window.location = redirect;
+    }, 100); 
+
+  } catch (error) {
+    console.error("login failed:", error);
+    alertMessage(error.message?.message || "Login failed.");
+  }
 }
+
+
