@@ -31,3 +31,28 @@ export async function checkout(payload) {
   return await fetch("http://server-nodejs.cit.byui.edu:3000/checkout", options)
     .then(convertToJson);
 }
+
+export async function loginRequest(user) {
+  const options = {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json", 
+    },
+    body: JSON.stringify(user),
+  };
+  const response = await fetch("http://server-nodejs.cit.byui.edu:3000/login", options).then(convertToJson);
+    
+  return response.accessToken;
+}
+
+export async function getOrders(token) {
+  const options = {
+    method: "GET",
+    
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await fetch(baseURL + "orders", options).then(convertToJson);
+  return response;
+}
