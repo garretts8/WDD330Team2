@@ -24,7 +24,7 @@ export default defineConfig({
         login: resolve(__dirname, "src/login/index.html"),
         signup: resolve(__dirname, "src/signup/index.html"),
         orders: resolve(__dirname, "src/orders/index.html"),
-        success: resolve(__dirname, "src/login/success.html"),
+        success: resolve(__dirname, "src/checkout/success.html"),
         // product2: resolve(__dirname, "src/product_pages/marmot-ajax-3.html"),
         // product3: resolve(
         //   __dirname,
