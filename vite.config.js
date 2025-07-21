@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   root: "src",
-
   build: {
     outDir: "../dist",
     rollupOptions: {
@@ -15,11 +14,8 @@ export default defineConfig({
         login: "login/index.html",
         signup: "signup/index.html",
         orders: "orders/index.html",
-        success: "checkout/success.html",
-        // product2: "product_pages/marmot-ajax-3.html",
-        // product3: "product_pages/northface-alpine-3.html",
-        // product4: "product_pages/northface-talus-4.html",
-      },
-    },
-  },
+        success: "checkout/success.html"
+      }
+    }
+  }
 });
