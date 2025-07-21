@@ -1,12 +1,7 @@
-import { fileURLToPath } from "url";
-import { dirname, resolve } from "path";
 import { defineConfig } from "vite";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 export default defineConfig({
-  root: "src",
+  root: "src/",
 
   build: {
     outDir: "../dist",
@@ -21,6 +16,9 @@ export default defineConfig({
         signup: "signup/index.html",
         orders: "orders/index.html",
         success: "checkout/success.html",
+        // product2: "product_pages/marmot-ajax-3.html",
+        // product3: "product_pages/northface-alpine-3.html",
+        // product4: "product_pages/northface-talus-4.html",
       },
     },
   },
